@@ -53,6 +53,19 @@ specs-deep.mjs        # Parte 3 (aula profunda por módulo) — você cria por c
 assets/spec-template.mjs  # esqueleto com 1 exemplo de cada tipo de cena
 references/           # extração de conteúdo, ilustrações SVG, vozes, formato
 renders/              # MP4 finais
+skills/               # a skill instalável (videos-cursos-inema) — SKILL.md + scripts/refs/assets
+```
+
+## A skill (Claude Code)
+
+O fluxo é dirigido pela skill **`videos-cursos-inema`**, incluída neste repo em
+[`skills/videos-cursos-inema/`](skills/videos-cursos-inema/SKILL.md). Ela ensina o agente a extrair o
+conteúdo do curso, escrever os specs e rodar o pipeline. Para instalar localmente, copie a pasta para
+o seu diretório de skills:
+
+```bash
+cp -r skills/videos-cursos-inema ~/.claude/skills/
+# reinicie a sessão do agente; depois invoque com /videos-cursos-inema
 ```
 
 > O `index.html` na raiz é a **composição HyperFrames** gerada pelo `build.mjs` (reescrita a cada vídeo) — não é a landing. A landing/guia mora em `docs/`.
