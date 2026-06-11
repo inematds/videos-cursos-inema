@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<!-- Landing + guia do projeto videos-cursos-inema. Padrao projetos-landing-guia (INEMA). -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>videos-cursos-inema — Cursos INEMA viram vídeos narrados e animados</title>
+<meta name="description" content="Motor que transforma um curso INEMA em uma série de vídeos narrados e animados (HTML→MP4 via HyperFrames), dark premium âmbar, com narração local e CTA INEMA.CLUB.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#E2A23B; --amb2:#f0c070; --sky:#38bdf8;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#b9791d; --amb2:#a16207; --sky:#0369a1;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  @media(max-width:760px){nav .links a.sec{display:none}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(226,162,59,.22),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.18rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:40ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero .panel{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000;background:linear-gradient(160deg,#1a1a22,#0e0e14)}
+  .filmstrip{display:flex;flex-direction:column}
+  .filmstrip .bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);font-size:.78rem;color:var(--mut);font-family:"JetBrains Mono",monospace}
+  .filmstrip .dot{width:10px;height:10px;border-radius:50%}
+  .filmstrip .body{padding:26px 22px 30px}
+  .filmstrip .eyebrow{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.28em;color:var(--amb);text-transform:uppercase}
+  .filmstrip .big{font-family:Sora;font-weight:800;font-size:2rem;letter-spacing:-.02em;margin:.35em 0 .1em}
+  .filmstrip .rule{height:5px;width:120px;border-radius:4px;background:linear-gradient(90deg,var(--amb),var(--amb2));margin:.5em 0 1em}
+  .filmstrip .cta-brand{font-family:Sora;font-weight:800;font-size:1.4rem}
+  .filmstrip .cta-brand .b2{color:var(--amb)}
+  .filmstrip .prog{height:5px;border-radius:4px;background:var(--line);margin-top:18px;overflow:hidden}
+  .filmstrip .prog i{display:block;height:100%;width:62%;background:linear-gradient(90deg,var(--amb),var(--amb2))}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:64ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.92rem;margin:0}
+  .card .t{display:inline-block;font-family:Sora;font-weight:800;color:var(--amb);font-size:.8rem;letter-spacing:.04em;margin-bottom:.5em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0}
+  pre .c{color:#6f6f7c} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px 1fr;gap:16px;margin-bottom:26px}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--amb);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .7em}
+  .phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border:none}
+  .phase .tag{flex:0 0 120px;font-family:Sora;font-weight:800;color:var(--amb)}
+  .phase .d strong{display:block;margin-bottom:.2em}
+  .phase .d span{color:var(--mut);font-size:.92rem}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:0 4px 6px}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="emoji">🎬</span> videos-cursos-inema</a>
+  <span class="sep">|</span>
+  <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+  <div class="links">
+    <a class="sec" href="#oque">O que é</a>
+    <a class="sec" href="#fluxo">Como funciona</a>
+    <a class="sec" href="#pre">Pré-requisitos</a>
+    <a class="sec" href="#guia">Guia de uso</a>
+    <a class="sec" href="#roadmap">Roadmap</a>
+    <button class="tgl" id="themeToggle" aria-label="Alternar tema" title="Alternar tema">🌙</button>
+    <a class="btn" href="https://github.com/inematds/videos-cursos-inema" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div>
+      <span class="chip">Motor de vídeo · HTML → MP4 · INEMA</span>
+      <h1>Um curso INEMA vira uma <span class="amb">série de vídeos</span> narrados e animados.</h1>
+      <p class="lead">Aponte pro site do curso e gere vídeos em três níveis — visão geral, trilhas e aulas profundas por módulo — no padrão dark premium âmbar, com narração local e CTA pra INEMA.CLUB.</p>
+      <div class="cta">
+        <a class="btn" href="#guia">Começar o guia</a>
+        <a class="btn ghost" href="https://github.com/inematds/videos-cursos-inema" target="_blank" rel="noopener">Ver no GitHub</a>
+      </div>
+    </div>
+    <figure class="panel">
+      <div class="filmstrip">
+        <div class="bar"><span class="dot" style="background:#ff5f56"></span><span class="dot" style="background:#ffbd2e"></span><span class="dot" style="background:#27c93f"></span><span style="margin-left:auto">fep-deep-t1-m1.mp4 · 16:9 · ~3m</span></div>
+        <div class="body">
+          <div class="eyebrow">● MÓDULO 1 · TÓPICO 3</div>
+          <div class="big">O que é um <span class="amb">LLM</span></div>
+          <div class="rule"></div>
+          <p class="mut" style="margin:0 0 18px">cena <code>illus</code> · narração inemavox · legenda no rodapé</p>
+          <div class="eyebrow" style="color:var(--mut)">CONTINUA EM</div>
+          <div class="cta-brand">INEMA<span class="b2">.CLUB</span></div>
+          <div class="prog"><i></i></div>
+        </div>
+      </div>
+    </figure>
+  </div>
+</header>
+
+<section id="oque"><div class="wrap">
+  <span class="chip">O que é</span>
+  <h2>Três níveis de vídeo a partir do mesmo curso</h2>
+  <p class="sub">O motor (<code>engine.mjs</code>) já traz o estilo, as animações e os tipos de cena. No dia a dia você só escreve os <em>specs</em> de cada vídeo — o resto é pipeline.</p>
+  <div class="grid g3">
+    <div class="card"><span class="t">PARTE 1</span><h3>🎯 Landing</h3><p>Um vídeo de visão geral — a landing do curso e as trilhas (o que é, números, as N trilhas). ~45–60s, voz rachel.</p></div>
+    <div class="card"><span class="t">PARTE 2</span><h3>🗺️ Trilhas</h3><p>Um vídeo por trilha mostrando módulos e tópicos; opcional uma intro por módulo. Nível trailer/roadmap. ~30–90s, voz rachel.</p></div>
+    <div class="card"><span class="t">PARTE 3</span><h3>📚 Conteúdo completo</h3><p>Uma aula profunda <strong>por módulo</strong> (percorre os ~6 tópicos), bem ilustrada com SVG. ~3–4 min, voz bella.</p></div>
+  </div>
+  <p class="sub" style="margin-top:22px">⚠️ A aula profunda é <strong>por módulo, não por tópico</strong>: 6 trilhas × 6 módulos = 36 vídeos profundos, não 216.</p>
+</div></section>
+
+<section id="fluxo"><div class="wrap">
+  <span class="chip">Como funciona</span>
+  <h2>Pipeline determinístico, com o timing vindo do áudio</h2>
+  <p class="sub">A narração é gerada primeiro; o <code>build.mjs</code> lê a duração <strong>real</strong> de cada WAV e sincroniza animação e legenda. Trocar a voz é trocar só a etapa de TTS — o resto fica idêntico.</p>
+  <div class="flow">
+    <span>Extrai o curso</span><span class="arr">→</span>
+    <span>Escreve specs</span><span class="arr">→</span>
+    <span>write-txt</span><span class="arr">→</span>
+    <span>tts (inemavox)</span><span class="arr">→</span>
+    <span>build</span><span class="arr">→</span>
+    <span>lint</span><span class="arr">→</span>
+    <span>render → MP4</span>
+  </div>
+  <div class="grid g3" style="margin-top:26px">
+    <div class="card"><h3>🎙️ Voz local</h3><p>Narração por voz clonada (inemavox / Chatterbox-VC) rodando em 127.0.0.1. Não gasta nada e pronuncia bem termos em inglês no meio do PT-BR.</p></div>
+    <div class="card"><h3>🎞️ HyperFrames</h3><p>O HTML gerado é uma composição HyperFrames com timeline GSAP pausada — renderizada pra MP4 em 16:9 ou 9:16.</p></div>
+    <div class="card"><h3>🧱 Tipos de cena</h3><p>title · topic · lead · bullets · cards · steps · term · compare · illus (SVG) · cta. A última é sempre o CTA do INEMA.CLUB.</p></div>
+  </div>
+</div></section>
+
+<section id="pre"><div class="wrap">
+  <span class="chip">Pré-requisitos</span>
+  <h2>O que precisa estar pronto</h2>
+  <p class="sub">Tudo roda local. O único serviço externo é o daemon de voz, que vive em 127.0.0.1.</p>
+  <div class="grid g3">
+    <div class="card"><h3>Node + FFmpeg</h3><p>Node 18+ (fetch nativo, ESM) e FFmpeg com <code>ffmpeg</code>/<code>ffprobe</code> no PATH.</p><pre><span class="c"># confira</span>
+<span class="k">node -v && ffprobe -version</span></pre></div>
+    <div class="card"><h3>HyperFrames</h3><p>CLI via npx (versão fixa no package.json). Cheque o ambiente.</p><pre><span class="c"># diagnóstico</span>
+<span class="k">npx hyperframes doctor</span></pre></div>
+    <div class="card"><h3>Voz + fontes</h3><p>Daemon inemavox no ar e fontes locais geradas uma vez.</p><pre><span class="c"># voz</span>
+<span class="k">curl 127.0.0.1:7860/health</span>
+<span class="c"># fontes</span>
+<span class="k">node fetch-fonts.mjs</span></pre></div>
+  </div>
+</div></section>
+
+<section id="guia"><div class="wrap">
+  <span class="chip">Guia de uso · passo a passo</span>
+  <h2>Gerar um vídeo, do spec ao MP4</h2>
+  <p class="sub">Cada vídeo é uma entrada no objeto <code>VIDEOS</code> (em <code>specs.mjs</code> para Partes 1–2, <code>specs-deep.mjs</code> para a Parte 3). O id começa sempre pelo slug do curso, ex.: <code>fep-deep-t1-m1</code>.</p>
+
+  <div class="step"><div class="b">1</div><div>
+    <h3>Escreva o spec da cena</h3>
+    <p>Copie o esqueleto e preencha as cenas. A última cena é sempre <code>cta</code>.</p>
+<pre><span class="k">cp assets/spec-template.mjs specs.mjs</span>  <span class="c"># edite o objeto VIDEOS</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">2</div><div>
+    <h3>Extraia as narrações</h3>
+    <p>Gera os arquivos de texto de cada cena a partir do campo <code>narration</code>.</p>
+<pre><span class="k">node write-txt.mjs &lt;id&gt;</span>  <span class="c"># -> assets/txt/&lt;id&gt;-sN.txt</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">3</div><div>
+    <h3>Gere a narração</h3>
+    <p>Chama o daemon de voz e salva os WAVs. Use <code>bella</code> (default) ou <code>rachel</code> para as Partes 1–2.</p>
+<pre><span class="k">node tts-inemavox.mjs &lt;id&gt; bella</span>  <span class="c"># -> assets/audio/&lt;id&gt;-sN.wav</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">4</div><div>
+    <h3>Monte a composição</h3>
+    <p>Lê a duração real dos WAVs e escreve o <code>index.html</code>. Sem flag = 16:9; <code>--vertical</code> = 9:16.</p>
+<pre><span class="k">node build.mjs &lt;id&gt;</span>             <span class="c"># 16:9</span>
+<span class="k">node build.mjs &lt;id&gt; --vertical</span>  <span class="c"># 9:16 (Shorts/Reels)</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">5</div><div>
+    <h3>Valide e renderize</h3>
+    <p>Lint tem que dar 0 erros. Confira 1 frame por cena antes do render final — renders são longos, rode em background.</p>
+<pre><span class="k">npx hyperframes lint</span>
+<span class="k">npx hyperframes render --quality high --output renders/&lt;id&gt;.mp4</span></pre>
+  </div></div>
+</div></section>
+
+<section id="roadmap"><div class="wrap">
+  <span class="chip">Vozes &amp; formatos</span>
+  <h2>Configurável por projeto</h2>
+  <p class="sub">Os defaults cobrem o caso comum; cada eixo é trocável sem mexer no resto do pipeline.</p>
+  <div class="phase"><div class="tag">Voz</div><div class="d"><strong>inemavox (local, clonada) — default</strong><span>bella (default) e rachel. Alternativas: Kokoro (local, grátis: pf_dora/pm_alex) e ElevenLabs (cloud, precisa key — documentado em references/vozes.md).</span></div></div>
+  <div class="phase"><div class="tag">Formato</div><div class="d"><strong>16:9 (default) · 9:16 · ambos</strong><span>Flag do build.mjs. Para ambos, gere os dois e renderize para arquivos separados (&lt;id&gt;-16x9.mp4 / &lt;id&gt;-9x16.mp4).</span></div></div>
+  <div class="phase"><div class="tag">Estilo</div><div class="d"><strong>Dark premium âmbar INEMA</strong><span>bg #0D1321, accent âmbar #FFC300, fontes locais Sora/Inter/JetBrains. Glow, ghost text, grid, grão e barra de progresso já no engine.mjs.</span></div></div>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="pill">Node + ESM</div><div class="pill">HyperFrames</div><div class="pill">GSAP</div><div class="pill">FFmpeg</div><div class="pill">inemavox TTS</div>
+    <p style="margin-top:18px">videos-cursos-inema · motor de vídeo de cursos INEMA ·
+      <a href="https://github.com/inematds/videos-cursos-inema">github.com/inematds/videos-cursos-inema</a> ·
+      <a href="https://inema.club">INEMA.CLUB</a></p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var KEY='videos-cursos-inema-theme';
+    var b=document.body, t=document.getElementById('themeToggle');
+    if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; }
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      localStorage.setItem(KEY, light?'light':'dark');
+    });
+  })();
+</script>
+</body>
+</html>

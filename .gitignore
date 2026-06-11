@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+*.log
+
+# Saída gerada pelo pipeline (regenerável a partir dos specs)
+assets/audio/*.wav
+assets/txt/*.txt
+renders/*.mp4
+frames/*.png
+frames/*.jpg
+voice-samples/
