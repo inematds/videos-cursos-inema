@@ -46,10 +46,11 @@ O usuário pode especificar; se **não disser nada, use os defaults**.
   `inemavox` → `node tts-inemavox.mjs <id> <voz>` · `kokoro` → `npx hyperframes tts <txt> --voice <voz> --lang pt-br`
   · `elevenlabs` → `tts-eleven.mjs` (ver `references/vozes.md`).
 - Formato é flag do `build.mjs`: 16:9 = `node build.mjs <id>` · 9:16 = `node build.mjs <id> --vertical`.
-  Pra **ambos**, gere os dois e renderize cada um pra um arquivo (`~/Downloads/<id>-16x9.mp4` / `~/Downloads/<id>-9x16.mp4`).
-- **Diretório de saída — default: `~/Downloads/`.** Renderize sempre o MP4 final pra lá
-  (`--output ~/Downloads/<id>.mp4`), **salvo o usuário definir outro lugar**. Os intermediários
-  (WAVs, frames, `index.html`) seguem na pasta do projeto, em `assets/`/`frames/`.
+  Pra **ambos**, gere os dois e renderize cada um pra um arquivo (`~/projetos/output/<id>-16x9.mp4` / `~/projetos/output/<id>-9x16.mp4`).
+- **Diretório de saída — default: `~/projetos/output/`** (pasta dedicada de saída, pra não confundir
+  com a de downloads do navegador). Renderize sempre o MP4 final pra lá (`--output ~/projetos/output/<id>.mp4`),
+  **salvo o usuário definir outro lugar**. Os intermediários (WAVs, frames, `index.html`) seguem na pasta
+  do projeto, em `assets/`/`frames/`.
 - Pergunte só se for ambíguo; caso contrário siga os defaults e **diga ao usuário quais defaults usou**.
 
 ## Fluxo de trabalho
@@ -92,7 +93,7 @@ os arquivos em `renders/` e os títulos no YouTube já saem identificados e nunc
 - Parte 3: `<curso>-deep-<trilha>-mN` (aula profunda do módulo — **um por módulo**, não por tópico)
 
 O `<curso>` é um slug curto em kebab-case do nome do curso (ex.: "Pirâmide da IA" → `piramide-ia`).
-Defina-o uma vez e prefixe todos os ids. Saída (default): `~/Downloads/<curso>-deep-t4-m1.mp4`.
+Defina-o uma vez e prefixe todos os ids. Saída (default): `~/projetos/output/<curso>-deep-t4-m1.mp4`.
 
 ### 4. Gerar (pipeline por id)
 Para cada vídeo: `write-txt` → `tts-inemavox` (voz!) → `build` → `render`.
@@ -101,7 +102,7 @@ node write-txt.mjs <id>                 # escreve assets/txt/<id>-sN.txt das nar
 node tts-inemavox.mjs <id> bella        # voz default = bella (todas as partes)
 node build.mjs <id>                      # lê durações reais dos WAVs e gera index.html (16:9)
 npx hyperframes lint                      # 0 erros
-npx hyperframes render --quality high --output ~/Downloads/<id>.mp4   # default: ~/Downloads (salvo o usuário pedir outro lugar)
+npx hyperframes render --quality high --output ~/projetos/output/<id>.mp4   # default: ~/projetos/output (salvo o usuário pedir outro lugar)
 ```
 Confira sempre `npx hyperframes lint` (0 erros) e, em vídeo novo, extraia 1 frame por cena com ffmpeg
 e **mostre ao usuário** antes do render final (você não ouve o áudio — peça pra ele validar a locução).
