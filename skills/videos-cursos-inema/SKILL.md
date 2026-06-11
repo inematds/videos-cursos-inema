@@ -55,8 +55,8 @@ O usuário pode especificar; se **não disser nada, use os defaults**.
 Crie uma pasta do curso e copie o motor + fontes:
 ```bash
 npx hyperframes init <curso>-videos --example blank --non-interactive
-# copie os scripts da skill pra raiz do projeto (ao lado de specs.mjs):
-cp <skill>/scripts/*.mjs <curso>-videos/
+# copie os scripts do motor pra raiz do projeto (ao lado de specs.mjs):
+cp <skill>/{engine,build,write-txt,tts-inemavox,fetch-fonts,voice-sample}.mjs <curso>-videos/
 # fontes locais (Sora/Inter/JetBrains) — NÃO usar CDN:
 cd <curso>-videos && node fetch-fonts.mjs   # gera assets/fonts/fonts.css
 mkdir -p assets/txt assets/audio renders frames
@@ -129,8 +129,11 @@ Narração padrão: "Isso é conteúdo do INEMA ponto CLUB. Acesse: inema ponto 
 - Confirmar frames com o usuário antes do render final.
 
 ## Arquivos da skill
-- `scripts/` — `engine.mjs` (motor + tipos de cena), `build.mjs`, `write-txt.mjs`, `tts-inemavox.mjs`,
+Layout flat (tudo na raiz desta pasta — é também um projeto HyperFrames rodável):
+- Motor: `engine.mjs` (motor + tipos de cena), `build.mjs`, `write-txt.mjs`, `tts-inemavox.mjs`,
   `fetch-fonts.mjs`, `voice-sample.mjs` (amostra de voz A/B).
+- Specs de exemplo (curso FEP): `specs.mjs`, `specs-deep.mjs`, `assets/deep-t*.mjs`. `render-all.sh` (lote).
+- Config HyperFrames: `package.json`, `hyperframes.json`, `meta.json`, `index.html` (composição gerada).
 - `assets/spec-template.mjs` — esqueleto com 1 exemplo de cada tipo de cena (incl. SVG).
 - `references/extracao-conteudo.md` — como puxar conteúdo do site do curso.
 - `references/ilustracoes-svg.md` — padrões de SVG pros vídeos profundos.
