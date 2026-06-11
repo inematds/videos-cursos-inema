@@ -75,11 +75,12 @@ node tts-inemavox.mjs <id> bella   # gera os WAVs (voz bella; use rachel p/ Part
 node build.mjs <id>                # lê durações reais e escreve index.html (16:9)
 #   9:16 (Shorts/Reels):  node build.mjs <id> --vertical
 npx hyperframes lint               # tem que dar 0 erros
-npx hyperframes render --quality high --output ~/projetos/output/<id>.mp4   # default: ~/projetos/output
+npx hyperframes render --quality high --output renders/<id>.mp4
 ```
 
-> **Diretório de saída — default `~/projetos/output/`.** O MP4 final é gravado em `~/projetos/output/<id>.mp4`,
-> salvo você definir outro lugar. Os intermediários (WAVs, frames, `index.html`) ficam na pasta do projeto.
+> **Onde tudo mora — default `~/projetos/output/<curso>-videos/`.** O projeto inteiro do curso (specs,
+> `assets/`, `frames/`, `index.html` e os MP4 em `renders/`) fica nessa pasta única dentro de `output/`,
+> salvo você definir outro lugar — cada curso todo num lugar só, fácil de achar.
 
 ### Pré-requisitos
 
