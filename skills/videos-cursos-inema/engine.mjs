@@ -205,6 +205,11 @@ export function renderHTML(spec, durations, vertical = false) {
       .illus svg text{font-family:Inter,system-ui,sans-serif}
       .illus svg .mono{font-family:"JetBrains Mono",monospace}
       .illus svg .ttl{font-family:Sora,sans-serif;font-weight:800}
+      .illus img{max-width:100%;max-height:740px;border-radius:18px;border:2px solid var(--bg3);box-shadow:0 24px 70px rgba(0,0,0,.55);display:block;object-fit:contain}
+      .illus figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:18px}
+      .illus figure figcaption{font-size:28px;color:var(--muted);font-family:"JetBrains Mono",monospace}
+      .illus .imgrow{display:flex;gap:30px;align-items:center;justify-content:center;width:100%}
+      .illus .imgrow img{max-height:560px}
       /* topic divider */
       .topic-eyebrow{text-align:center;font-family:"JetBrains Mono",monospace;font-size:30px;letter-spacing:.4em;color:var(--accent);font-weight:700;text-transform:uppercase}
       .topic-name{text-align:center;font-family:Sora;font-weight:800;font-size:104px;line-height:1.02;letter-spacing:-.02em;margin-top:24px}
